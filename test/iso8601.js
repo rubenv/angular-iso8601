@@ -10,4 +10,13 @@ describe('ISO8601', function () {
     it('Has a parse method', function () {
         assert.isFunction(iso8601.parse);
     });
+
+    it('Parses dates', function () {
+        assert.equal(iso8601.parse('2014-06-10').toDateString(), 'Tue Jun 10 2014');
+    });
+
+    it('Parses date / time', function () {
+        assert.equal(iso8601.parse('2014-06-10T13:52:43').toDateString(), 'Tue Jun 10 2014');
+        assert.equal(iso8601.parse('2014-06-10T13:52:43').toTimeString().substring(0, 8), '13:52:43');
+    });
 });
