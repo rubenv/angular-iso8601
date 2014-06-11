@@ -4,7 +4,6 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
   }
   return {
     parse: function parse(str) {
-      var date = new Date(0);
       var year;
       var month;
       var day;
@@ -28,13 +27,7 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
         minutes = toInt(timePieces[1]);
         seconds = toInt(timePieces[2]);
       }
-      date.setYear(year);
-      date.setMonth(month);
-      date.setDate(day);
-      date.setHours(hours);
-      date.setMinutes(minutes);
-      date.setSeconds(seconds);
-      return date;
+      return new Date(year, month, day, hours, minutes, seconds, 0);
     }
   };
 });
