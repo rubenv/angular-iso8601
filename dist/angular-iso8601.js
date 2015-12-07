@@ -29,6 +29,10 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
         seconds = toInt(timePieces[2].substring(0, 2));
         var tz = timePieces[2].substring(2);
         if (tz !== '') {
+          if (tz[0] === '.') {
+            var start = Math.max(tz.indexOf('Z'), tz.indexOf('+'), tz.indexOf('-'));
+            tz = start > -1 ? tz.substring(start) : '';
+          }
           if (tz === 'Z') {
             // Supplied time is in UTC, convert to local time
             offset = -1000 * new Date().getTimezoneOffset() * 60;
