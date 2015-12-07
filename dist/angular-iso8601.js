@@ -10,6 +10,7 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
       var hours;
       var minutes;
       var seconds;
+      var offset = 0;
       // Default time to midnight.
       hours = minutes = seconds = 0;
       if (!str || str.length === 0) {
@@ -25,9 +26,22 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
         var timePieces = str.substring(11).split(':');
         hours = toInt(timePieces[0]);
         minutes = toInt(timePieces[1]);
-        seconds = toInt(timePieces[2]);
+        seconds = toInt(timePieces[2].substring(0, 2));
+        var tz = timePieces[2].substring(2);
+        if (tz !== '') {
+          if (tz === 'Z') {
+            // Supplied time is in UTC, convert to local time
+            offset = -1000 * new Date().getTimezoneOffset() * 60;
+          } else {
+            throw new Error('Other timezones not supported yet: ' + tz);
+          }
+        }
       }
-      return new Date(year, month, day, hours, minutes, seconds, 0);
+      var date = new Date(year, month, day, hours, minutes, seconds, 0);
+      if (offset !== 0) {
+        date.setTime(date.getTime() + offset);
+      }
+      return date;
     }
   };
 });
