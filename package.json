@@ -1,6 +1,6 @@
 {
   "name": "angular-iso8601",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "ISO8601 date parser for Angular.JS.",
   "main": "dist/angular-iso8601.js",
   "directories": {
