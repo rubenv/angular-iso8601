@@ -40,7 +40,9 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
                         tz = start > -1 ? tz.substring(start) : '';
                     }
 
-                    if (tz === 'Z') {
+                    if (tz === '') {
+                        // Do nothing
+                    } else if (tz === 'Z') {
                         // Supplied time is in UTC, convert to local time
                         offset = -1000 * new Date().getTimezoneOffset() * 60;
                     } else {
