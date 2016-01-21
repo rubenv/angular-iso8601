@@ -35,8 +35,8 @@ describe('ISO8601', function () {
     });
 
     it('Parses time offsets', function () {
-        assert.equal(iso8601.parse('2016-01-21T11:30:00+01:00').toTimeString(), '11:30:00 GMT+0100 (CET)');
-        assert.equal(iso8601.parse('2016-01-21T12:30:00+02:00').toTimeString(), '11:30:00 GMT+0100 (CET)');
-        assert.equal(iso8601.parse('2016-01-21T10:30:00+00:00').toTimeString(), '11:30:00 GMT+0100 (CET)');
+        assert.equal(iso8601.parse('2016-01-21T11:30:00+01:00').toUTCString(), 'Thu, 21 Jan 2016 10:30:00 GMT');
+        assert.equal(iso8601.parse('2016-01-21T12:30:00+02:00').toUTCString(), 'Thu, 21 Jan 2016 10:30:00 GMT');
+        assert.equal(iso8601.parse('2016-01-21T10:30:00+00:00').toUTCString(), 'Thu, 21 Jan 2016 10:30:00 GMT');
     });
 });
