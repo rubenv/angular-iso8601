@@ -46,7 +46,15 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
                         // Supplied time is in UTC, convert to local time
                         offset = -1000 * new Date().getTimezoneOffset() * 60;
                     } else {
-                        throw new Error('Other timezones not supported yet: ' + tz);
+                        var mod = tz[0] === '-' ? -1 : 1;
+                        if (tz.length === 3) {
+                            var localOffset = new Date().getTimezoneOffset();
+                            var tzOffset = parseInt(tz.substring(1)) * 60;
+                            //offset = l
+                            offset = -(localOffset + tzOffset) * 60 * 1000;
+                        } else {
+                            throw new Error('Unsupported timezone offset: ' + tz);
+                        }
                     }
                 }
             }
