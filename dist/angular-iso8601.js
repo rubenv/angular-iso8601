@@ -1,4 +1,4 @@
-angular.module('rt.iso8601', []).factory('iso8601', function () {
+angular.module("rt.iso8601", []).factory("iso8601", function () {
     function toInt(val) {
         return parseInt(val, 10);
     }
@@ -21,39 +21,43 @@ angular.module('rt.iso8601', []).factory('iso8601', function () {
             }
 
             if (str.length >= 10) {
-                var datePieces = str.substring(0, 10).split('-');
+                var datePieces = str.substring(0, 10).split("-");
                 year = toInt(datePieces[0]);
                 month = toInt(datePieces[1]) - 1;
                 day = toInt(datePieces[2]);
             }
 
             if (str.length >= 11) {
-                var timePieces = str.substring(11).split(':');
+                var timePieces = str.substring(11).split(":");
+                while (timePieces.length < 3) {
+                    timePieces.push("");
+                }
+
                 hours = toInt(timePieces[0]);
                 minutes = toInt(timePieces[1]);
-                seconds = toInt(timePieces[2].substring(0, 2));
+                seconds = toInt(timePieces[2].substring(0, 2)) || 0;
 
                 var tz = timePieces[2].substring(2);
-                if (tz !== '') {
-                    if (tz[0] === '.') {
-                        var start = Math.max(tz.indexOf('Z'), tz.indexOf('+'), tz.indexOf('-'));
-                        tz = start > -1 ? tz.substring(start) : '';
+                if (tz !== "") {
+                    if (tz[0] === ".") {
+                        var start = Math.max(tz.indexOf("Z"), tz.indexOf("+"), tz.indexOf("-"));
+                        tz = start > -1 ? tz.substring(start) : "";
                     }
 
-                    if (tz === '') {
+                    if (tz === "") {
                         // Do nothing
-                    } else if (tz === 'Z') {
+                    } else if (tz === "Z") {
                         // Supplied time is in UTC, convert to local time
                         offset = -1000 * new Date().getTimezoneOffset() * 60;
                     } else {
-                        var mod = tz[0] === '-' ? -1 : 1;
+                        var mod = tz[0] === "-" ? -1 : 1;
                         if (tz.length === 3) {
                             var localOffset = new Date().getTimezoneOffset();
                             var tzOffset = parseInt(tz.substring(1)) * 60;
                             //offset = l
                             offset = -(localOffset + tzOffset) * 60 * 1000;
                         } else {
-                            throw new Error('Unsupported timezone offset: ' + tz);
+                            throw new Error("Unsupported timezone offset: " + tz);
                         }
                     }
                 }
