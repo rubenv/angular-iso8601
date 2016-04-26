@@ -39,11 +39,9 @@ describe("ISO8601", function () {
         assert.equal(iso8601.parse("2014-06-10T13:52:43.184421103Z").toTimeString().substring(0, 8), hour + ":52:43");
     });
 
-    /*
     it("Parses time offsets", function () {
         assert.equal(iso8601.parse("2016-01-21T11:30:00+01:00").toUTCString(), "Thu, 21 Jan 2016 10:30:00 GMT");
         assert.equal(iso8601.parse("2016-01-21T12:30:00+02:00").toUTCString(), "Thu, 21 Jan 2016 10:30:00 GMT");
         assert.equal(iso8601.parse("2016-01-21T10:30:00+00:00").toUTCString(), "Thu, 21 Jan 2016 10:30:00 GMT");
     });
-    */
 });
