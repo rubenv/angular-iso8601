@@ -49,7 +49,7 @@ angular.module("rt.iso8601", []).factory("iso8601", function () {
 
                 if (tz === "") {
                     // Supplied time is in local time
-                    offset = 1000 * new Date().getTimezoneOffset() * 60;
+                    return new Date(year, month, day, hours, minutes, seconds, 0);
                 } else if (tz === "Z") {
                     // Do nothing
                 } else {
